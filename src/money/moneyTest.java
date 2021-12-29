@@ -4,14 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-//TODO $5 + CHF = $10 (レートが２：１の場合)
-//TODO $5*2 = $10
-//TODO amountをprivateにする
-//TODO Dollerの副作用をどうする
-//TODO moneyの丸め処理をどうするか
-//TODO nullとの等価性比較
-//TODO 他のオブジェクト等価性比較
-
 public class moneyTest {
 
 	@Test
@@ -42,4 +34,30 @@ public class moneyTest {
 		Money reduced = bank.reduce(sum, "USD");
 		assertEquals(Money.dollar(10), reduced);
 	}
+
+	@Test
+	public void testPlusReturnsSum() {
+		Money five = Money.dollar(5);
+		Expression result = five.plus(five);
+		Sum sum = (Sum) result;
+		assertEquals(five, sum.augend);
+		assertEquals(five, sum.addend);
+
+	}
+
+	@Test
+	public void testReduceSum() {
+		Expression sum = new Sum(Money.dollar(3), Money.dollar(4));
+		Bank bank = new Bank();
+		Money result = bank.reduce(sum, "USD");
+		assertEquals(Money.dollar(7), result);
+	}
+
+	@Test
+	public void testRedueceMoney() {
+		Bank bank = new Bank();
+		Money result = bank.reduce(Money.dollar(1), "USD");
+		assertEquals(Money.dollar(1), result);
+	}
+
 }
