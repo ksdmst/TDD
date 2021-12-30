@@ -61,6 +61,11 @@ public class moneyTest {
 	}
 
 	@Test
+	public void testIdentityRate() {
+		assertEquals(1, new Bank().rate("USD", "USD"));
+	}
+
+	@Test
 	public void testReduceMoneyDifferentCurrency() {
 		Bank bank = new Bank();
 		bank.addRate("CHF", "USD", 2);
